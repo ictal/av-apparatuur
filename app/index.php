@@ -18,6 +18,7 @@
             <dd>
                 <?php
                 $url = parse_url(getenv('DATABASE_URL'));
+                print_r($url);
                 $connection = new mysqli($url['host'], $url['user'], $url['pass'], null, $url['port']);
                 if ($connection->connect_errno) {
                     printf("Connect failed: %s\n", $connection->connect_error);
