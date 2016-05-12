@@ -17,15 +17,25 @@
             <dt>Mysql</dt>
             <dd>
                 <?php
-                    $connection = new mysqli(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASS'));
-                    if($connection) {
-                        if($connection->select_db(getenv('DB_NAME'))) {
-                            echo "No DB";
-                        }
-                        echo $connection->ping() ? "OK" : $connection->error;
+                $url = parse_url(getenv('DATABASE_URL'));
+                $connection = new mysqli($url['host'], $url['user'], $url['pass'], null, $url['port']);
+                if ($connection->connect_errno) {
+                    printf("Connect failed: %s\n", $connection->connect_error);
+                } else {
+                    echo "Connection OK.<br>";
+                    /* check if server is alive */
+                    if (!$connection->ping()) {
+                        printf ("Error: %s\n", $connection->error);
                     } else {
-                        echo "No Connection";
+                        $dbname = substr($url['path'], 1);
+                        if (!$connection->select_db($dbname)) {
+                            echo "Database not found";
+                        } else {
+                            echo "OK";
+                        }
                     }
+                }
+                $connection->close();
                 ?>
             </dd>
         </dl>
