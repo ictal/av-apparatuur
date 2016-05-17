@@ -197,7 +197,7 @@ class Database
     public function connect()
     {
         try {
-            $this->pdo = new PDO("mysql:host=localhost;dbname=$this->_name", $this->_user, $this->_pass, array(PDO::ATTR_PERSISTENT => true));
+            $this->pdo = new PDO("mysql:host=$this->_host;dbname=$this->_name", $this->_user, $this->_pass, array(PDO::ATTR_PERSISTENT => true));
             #echo 'Connecting established!' ."\n";
         } catch (PDOException $e) {
 
