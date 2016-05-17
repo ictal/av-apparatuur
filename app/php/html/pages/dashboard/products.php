@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/php/config.php';
+require_once dirname(__FILE__) . '/../../../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $target_dir = ASSET_PATH;
