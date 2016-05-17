@@ -3,7 +3,7 @@ include_once(dirname(__FILE__).'/../net/session.php');
 
 $session = new Session();
 	if($session->_isset('userId'))
-		header('Location: http://localhost/AV/index.php');
+		header('Location: index.php');
 	
 include_once(dirname(__FILE__)."/../net/database.php");
 include_once(dirname(__FILE__).'/../html/page.php');
@@ -35,11 +35,11 @@ include(dirname(__FILE__).'/user.php');
 				$session->set("logged_in", 'true' );
 				$session->set("userId", $user["username"]);
 				
-				header('Location: ' ."http://localhost/AV/".'index.php'); // TODO root/index.php
+				header('Location: index.php'); // TODO root/index.php
 				$db->destroy();
 				return true;
 			}else{
-				header('location: '. "http://localhost/AV/".'?error=1');
+				header('location: index.php?error=1');
 				$db->destroy();
 				return false;
 			}

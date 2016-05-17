@@ -89,7 +89,7 @@ class Page
 
 	public function redirect ( $page, $get )
 	{
-		header( 'Location: http://localhost/AV/' .$page .$get );
+		header( 'Location: ' .$page .$get );
 	}
 
 	public function handleGET()
