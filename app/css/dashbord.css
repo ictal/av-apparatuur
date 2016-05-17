@@ -1,0 +1,111 @@
+.nav-box {
+	background-color: white;
+	width: 24%;
+	float: left;
+	height: 1000px;
+	margin-right: 10px;
+}
+
+.dashbord-body {
+	background-color: #eae9e9;
+	width: 70%;
+	float: right;
+	height: 1000px;
+	padding: 20px;
+}
+
+.dashbord-body .top-section {
+	width: 100%;
+}
+
+.dashbord-body .top-section .info-box {
+	height: 70px;
+	background: white;
+	width: 220px;
+	float: left;
+	
+}
+
+.top-section .info-box:last-child {
+float: right;
+margin: 0;
+}
+.info-box.middle {
+    margin: 0 5px;
+}
+.info-box h1 {
+	font-size: 35px;
+	color: #676464;
+	margin: 0;
+	float: left;
+	margin-left: 34px;
+	margin-top: 14px;
+
+}
+
+.info-box .descryption {
+	float: right;
+    width: 133px;
+}
+
+.info-box .descryption h3 , .info-box .descryption p {
+	margin: 0;
+}
+.info-box .descryption h3 {
+	font-size: 15px;
+	margin-top: 18px;
+}
+
+
+.mid-section {
+    background: white none repeat scroll 0 0;
+    height: 205px;
+    margin-top: 15px;
+    width: 100%;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.info-table {
+    height: 35px;
+}
+
+.info-table h3 {
+	margin: 0px;
+	margin-bottom: 3px;
+}
+
+.info-table table tr td {
+	font-size: 13px;
+}
+.info-table table {
+	padding-top: 5px;
+	margin-top: -23px;
+}
+
+#telaat {
+	background: #dc8484;
+	color: white;
+	padding:30px;
+}
+
+table {
+        border-collapse: separate;
+        border-spacing: 0px 19px;
+		
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
