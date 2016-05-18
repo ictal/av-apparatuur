@@ -46,7 +46,7 @@ print_r($_SESSION);
 						<br>
 						<input type='submit' class='btn-full-width' value='Registeren'>
 						</div>
-						<a href='/AV/index.php' class='pull-left'><-- Terug</a>
+						<a href='index.php' class='pull-left'><-- Terug</a>
 					</section>
 					
 				</form>
