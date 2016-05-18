@@ -3,12 +3,9 @@
 /**
 *  class page
 */
-
-require_once dirname( __FILE__ ) .'/../config.php';
-
 class Page
 {
-	//current page
+	//current page that the user in on.
 	private $current_page;
 	
 	//pages the user can access.
@@ -42,27 +39,26 @@ class Page
 
 	private $error_List = array(
 	
-		'wrong_login_details' => array(
+		'WRONG_LOGIN_DETAILS' => array(
 			'message' => 'De door u ingevoerde combinatie van gebruikersnaam en wachtwoord is bij ons niet bekend.'
 			),
 			
-		'incomplete_form' => array(
+		'INCOMPLETE_FORM' => array(
 			'message' => 'U heeft niet alle verplichte velden ingevuld.'
 			),
 			
-		'terms_not_accepted' => array(
+		'UNACCEPTED_TERMS' => array(
 			'message' => 'U bent niet akkoord gegaan met onze voorwaarden.'
 			),
 			
-		'invalid_token' => array(
+		'INVALID_TOKEN' => array(
 			'message' => 'U probeert te registreren met een ongeldige token. Uw handelingen zijn opgeslagen voor nader onderzoek.'
 			)
 			
 	);
-	
 	function __construct( $page = false)
 	{
-		//define the current page
+		//defines the current page
 		if($page)
 			$this->current_page = $page;
 
@@ -93,7 +89,7 @@ class Page
 
 	public function redirect ( $page, $get )
 	{
-		header('Location: ' .SERVER_ROOT .$page .'?' .$get);
+		header( 'Location: ' .$page .$get );
 	}
 
 	public function handleGET()
@@ -120,8 +116,7 @@ class Page
 		}
 
 	}
-	
-	//loads reaquested page
+	//loads requested file
 	public function load( $page = false  )
 	{	
 		if($page == $this->current_page)
@@ -130,47 +125,50 @@ class Page
 		if(!$page)
 			$page = $this->getCurrentPage();
 
-		//local varible of page_list array
+		//local varible that contains page_page list array
 		$page_list = $this->page_list;
 		
-		//check if requested page exit in our page_list
+		//does tha page exist in our page list
 		if( array_key_exists($page, $page_list) )
 		{
-			//get the dir. name of the requested page.
+			//get the dir name of the requested page.
 			$page_dir = $page_list[ $page ]['dir'];
 			$parent = $page_list[ $page]['parent'];
 
 			if( strpos($_SERVER['SCRIPT_NAME'],  $parent) !== false)
 			{
-				//include page to file.
+				//include the page to the this file.
 				$this->_include( $page_dir );
 			}
 		
 			
 		}
 	}
-	
-	//include requested file
+
+	//$root = http://localhost/AV/
+	//include file from $root/php/html/
 	public function _include( $file )
 	{
-		
+
+		//include requested file
 		include( dirname( __FILE__ ) .$file);
-		
+
 	}
 
 
 	public function display_errors() 
 	{
-	
-		if( isset($_GET['error'] ) )
+		$session = new Session();
+
+		if($session->_isset('error'))
 		{
-			return $this->error( $_GET['error'] );
+			return $this->error( $session->get('error') );
 		}
 	}
 
 	private function error( $errorType )
 	{
-		$errorType = strtolower( $errorType );
+		$errorType = strtoupper( $errorType );
 		$error = $this->error_List[ $errorType ]['message'];
 
 		$error_string = "<section class='notice'>";
@@ -179,13 +177,12 @@ class Page
 		return $error_string;
 	}
 
-	//get current page
+	//getter and setter for $this->current_page;
 	public function getCurrentPage()
 	{
 		return $this->current_page;
 	}
-	
-	//set current page
+
 	public function setCurrentPage( $page )
 	{
 		$this->current_page = $page;

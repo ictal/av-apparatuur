@@ -92,8 +92,11 @@ include_once(dirname(__FILE__).'/../html/page.php');
 		}
 		
 		public function sendError( $error, $page ){
-			$p = new Page();	
-			$p->redirect($page ,'error=' .$error);
+			$session = new Session();
+			$p = new Page();
+			
+			$session->set('error', $error);
+			$p->redirect($page ,'?error=' .$error);
 		}
 		
 	}
