@@ -57,7 +57,6 @@ switch( $form->_type ){
 					
 					$session->set( 'logged_in', true );
 					
-					$page->redirect('index.php');
 					$session->remove('error');
 					
 				}else{
