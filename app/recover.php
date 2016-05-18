@@ -16,7 +16,7 @@
 				<h1>Wachtwoord vergeten?</h1> <!-- Title -->
 				<section class='container clearfix'>
 					<p> Om uw wachtwoord te resseten moet u naar dennis gaan </p>
-					<a href='/AV/index.php' class='pull-left link-1'><-- Terug</a>
+					<a href='index.php' class='pull-left link-1'><-- Terug</a>
 				</section>
 			<!--	wachtwoord resetten 
 				<form action='process.php' method='post'>
