@@ -1,25 +1,18 @@
 <?php 
 
 include(dirname(__FILE__).'/php/form/form.php');
-include(dirname(__FILE__).'/php/user/login.php'); //TODO REMOVE LOGIN.
-include(dirname(__FILE__).'/php/user/mail.php');
+include(dirname(__FILE__).'/php/user/login.php');
 include_once(dirname(__FILE__).'/php/net/session.php');
 include_once(dirname(__FILE__).'/php/net/database.php');
 include_once(dirname(__FILE__).'/php/html/page.php');
 
-echo '<pre>';
 $form = new Form( $_POST );
 $page = new Page();
 $session = new session();
 $db = new Database();
 
 switch( $form->_type ){
-	/*case 'recover':
 	
-		$mail = new Mail( $form['email'] );
-		$mail->send();
-		
-		break;*/
 	case 'registration':
 		if( $form->validate()) {
 			
@@ -64,11 +57,11 @@ switch( $form->_type ){
 					
 					$session->set( 'logged_in', true );
 					
-					$page->redirect('?p=user');
+					$page->redirect('index.php');
 					$session->remove('error');
 					
 				}else{
-					$form->sendError('wrong_login_details', '?p=login');
+					$form->sendError('wrong_login_details', 'index.php');
 					
 				}
 				
@@ -76,12 +69,12 @@ switch( $form->_type ){
 				
 			}else{
 				
-				$form->sendError('invalid_token', '?p=login');
+				$form->sendError('invalid_token', 'index.php');
 				
 			}
 		}else{
 			
-			$form->sendError('incomplete_form', '?p=login');
+			$form->sendError('incomplete_form', 'index.php');
 			
 		}
 		
