@@ -27,7 +27,7 @@ switch( $form->_type ){
 				$session->remove('registration_token');
 				$session->remove('error');
 
-				$page->redirect('index.php?p=user');
+				$page->redirect('index.php' .'p=user');
 				
 			}else{
 				
@@ -57,7 +57,7 @@ switch( $form->_type ){
 					
 					$session->set( 'logged_in', true );
 					
-					$page->redirect('index.php');
+					$page->redirect('index.php','p=user');
 					$session->remove('error');
 					
 				}else{
@@ -82,5 +82,4 @@ switch( $form->_type ){
 	break;
 }
 	
-#header('Location: ' ."http://localhost/AV/".'index.php');
 ?>
