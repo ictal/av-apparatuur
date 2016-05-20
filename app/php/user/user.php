@@ -28,6 +28,10 @@
 
 		}
 		
+		public function getStatus() {
+			return intval( $this->getUser( 'status' ) );
+		}
+		
 		public function getPermission()
 		{
 

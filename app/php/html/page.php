@@ -50,6 +50,10 @@ class Page
 			'message' => 'U heeft niet alle verplichte velden ingevuld.'
 			),
 			
+		'account_not_activated' => array(
+			'message' => 'Uw account is nog niet geactiveerd. Kijk  in uw mail voor meer informatie over activeren.'
+			),
+			
 		'terms_not_accepted' => array(
 			'message' => 'U bent niet akkoord gegaan met onze voorwaarden.'
 			),
@@ -93,7 +97,10 @@ class Page
 
 	public function redirect ( $page, $get )
 	{
-		header('Location: ' .SERVER_ROOT .$page .'?' .$get);
+		if($get)
+			$get = '?' .$get;
+		
+		header('Location: ' .SERVER_ROOT .$page .$get);
 	}
 
 	public function handleGET()
