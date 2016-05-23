@@ -96,7 +96,7 @@ include_once(dirname(__FILE__).'/../html/page.php');
 			$p = new Page();
 			
 			$session->set('error', $error);
-			$p->redirect($page ,'?error=' .$error);
+			$p->redirect($page ,'error=' .$error);
 		}
 		
 	}
