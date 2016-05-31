@@ -80,7 +80,7 @@
 			$rentedProducts = $db->fetch( "SELECT COUNT( id ) amount FROM productreservations WHERE product_serial iS NOT NULL" )['amount'];
 			$reservationsList = $db->fetch( "SELECT COUNT(id) amount FROM reservations" )['amount'];
 			$newReservations = $db->fetch( "SELECT COUNT( id ) amount FROM productreservations WHERE product_serial iS NULL" )['amount'];
-			$productsList = $db->fetch( "SELECT COUNT( id ) amount FROM products " )['amount'];
+			$productsList = $db->fetch( "SELECT COUNT( id ) amount FROM serials " )['amount'];
 			
 			$responce = array(
 				'rentedProducts' => $rentedProducts,
@@ -220,7 +220,7 @@
 				
 			}
 			break;
-			
+		
 		case 'updateProduct':
 		
 			
@@ -252,6 +252,23 @@
 					$db->query( $sql_two, $_POST['reservation_id'] );
 						
 				}
+			}
+		break;
+		case 'deleteUser':
+			$id = $_POST['id'];
+			if( $session->_isset('userId') )
+			{
+				$user = new User( $session->get('userId') );
+				
+				if($user->getPermission() > 0)
+				{
+					
+					$sql = 'DELETE FROM users WHERE id = ?';
+					
+					$db->query( $sql, array( $id ) );
+					
+				}
+				
 			}
 		break;
 		case 'deleteProducts':

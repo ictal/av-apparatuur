@@ -58,7 +58,7 @@ switch( $form->_type ){
 				if( $db->existUser($form['username'], $form['password']) ){
 					
 					$user = new User( $db->getUser( $form['username'], 'id') );
-					
+					$user->updateLastLogin();
 					//has not validate email.
 					if( $user->getStatus() < 1 ){
 						$form->sendError('account_not_activated', 'index.php');

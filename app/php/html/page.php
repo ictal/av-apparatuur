@@ -51,7 +51,7 @@ class Page
 			),
 			
 		'account_not_activated' => array(
-			'message' => 'Uw account is nog niet geactiveerd. Kijk  in uw mail voor meer informatie over activeren.'
+			'message' => 'Uw account is nog niet geactiveerd.'
 			),
 			
 		'terms_not_accepted' => array(

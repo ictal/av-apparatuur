@@ -38,7 +38,11 @@
 			return intval( $this->getUser( 'permission' ) );
 
 		}
-
+		public function updateLastLogin(){
+			$sql = 'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?';
+			parent::query($sql, array( $this->id ) );
+		}
+		
 		public function getFullName()
 		{
 			return $this->container['first_name'] .' ' .$this->container['tsn_voegsel'] .' ' .$this->container['last_name'];
