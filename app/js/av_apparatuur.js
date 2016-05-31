@@ -352,6 +352,25 @@
 		this.selectedUsers = [];
 		this.editAbleUser;
 		
+		this.selectAll = function(e)
+		{
+			var users = this.users;
+			var list = this.selectedUsers;
+			var length = users.length;
+			for(var i = 0; i < length; i++)
+			{
+				if(!list.contains( users[ i ].id) && e.originalTarget.checked){
+					list.add( users[ i].id );
+					document.getElementById( users[ i ].id ).checked = true;
+				}else if( e.originalTarget.checked == false && list.contains( users[ i].id)){
+					list.remove( users[ i].id );
+					document.getElementById( users[ i ].id ).checked = false;
+				}
+			
+			}
+			
+			
+		}
 		
 		this.addToList = function( userId )
 		{
@@ -413,10 +432,35 @@
 		}
 		
 		this.editUser = function(){
-			if( this.selectedUsers.length != 1)
-				alert( 'Je hebt geen of the veel producten geselecteerd. MAX toegestaan  is 1.');
+			if( this.selectedUsers.length != 1 )
+				alert( 'Je hebt geen of the veel gebruikers geselecteerd. MAX toegestaan  is 1.');
 			else
 				this.showEdit = true;
+		}
+		this.closeEdit = function () {
+			this.showEdit = false;
+		}
+		this.delete = function(){
+			if( this.selectedUsers.length != 1 ){ 
+				alert( 'Je hebt geen of the veel gebruikers geselecteerd. MAX toegestaan  is 1.');
+				return;
+			}
+			
+			var id = this.getselectedUser( 'id' );
+			var that = this;
+			$http({
+				method: 'POST',
+				url: 'api.php/?q=deleteUser',
+				data: $httpParamSerializerJQLike( {'id': id} ), //WTF...
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).then(function successCallback(response) {
+				that.loadUsers();
+				this.selectedUsers = null;
+			}, function errorCallback(response) {
+				console.log(response);
+			});
+			
+			
 		}
 		
 		this.processData = function( JSONResponce ){

@@ -113,7 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <section class='notifications'>
         <h1>Alle Producten<a><img src='img/icon-show-1.png'></a></h1>
         <hr>
-        {{ pm.selectedProducts }}
         <table>
             <tr id='head'>
                 <th width='35px'><input type='checkbox' id='selected_products' name='selected_products'
