@@ -1,15 +1,10 @@
 <?php
-include_once(dirname(__FILE__).'/../net/session.php');
-
-$session = new Session();
-	if($session->_isset('userId'))
-		header('Location: index.php');
-	
+include_once(dirname(__FILE__).'/../net/session.php');	
 include_once(dirname(__FILE__)."/../net/database.php");
 include_once(dirname(__FILE__).'/../html/page.php');
 include(dirname(__FILE__).'/user.php');
 
-	class Login{
+	class Login {
 		
 		private $_username;
 		private $_password;

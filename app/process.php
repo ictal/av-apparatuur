@@ -1,7 +1,8 @@
 <?php 
-
+echo '<pre>';
 include(dirname(__FILE__).'/php/form/form.php');
 include(dirname(__FILE__).'/php/user/login.php');
+include(dirname(__FILE__).'/php/products.php');
 include_once(dirname(__FILE__).'/php/net/session.php');
 include_once(dirname(__FILE__).'/php/net/database.php');
 include_once(dirname(__FILE__).'/php/html/page.php');
@@ -48,7 +49,30 @@ switch( $form->_type ){
 		
 		
 	break;
-	
+	case 'products':
+		print_r($form);
+		$aantal = intval( explode(':', $_POST['product_aantal'])[1] );
+		$serials = [];
+		
+		for( $i = 0; $i < $aantal; $i++){
+			
+			array_push($serials, $_POST['product_serial_' .$i ]);
+			
+		}
+		
+		$product = new Product('product_img', $_POST['product_name'], $_POST['product_description'], $serials );
+		
+		if( $product->saveProducts() ){
+			
+			$page->redirect('dashboard.php' ,'p=products');
+			
+		}else{
+			
+			$page->redirect('dashboard.php' ,'p=products&error=' .$product->error_message );
+			
+		}
+		
+ 	break;
 	case 'login':
 		if( $form->validate()) {
 			$token = Encryption::_hash( 'login', $session->get('login_token') );
@@ -95,6 +119,5 @@ switch( $form->_type ){
 		$session->remove('login_token');
 	break;
 }
-	
-#header('Location: ' ."http://localhost/AV/".'index.php');
+
 ?>

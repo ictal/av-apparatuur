@@ -201,7 +201,9 @@ class Database
         }
     }
 
-
+	public function getInsertedLastId() {
+		return $this->pdo->lastInsertId();
+	}
     public function destroy()
     {
         $this->pdo = null;
