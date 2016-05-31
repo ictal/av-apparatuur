@@ -7,4 +7,5 @@ DEFINE('DB_USER', $url['user']);
 DEFINE('DB_PASS', $url['pass']);
 DEFINE('DB_NAME', substr($url['path'], 1));
 
+DEFINE('ASSET_PATH', dirname(__FILE__) . '/../assets/');
 DEFINE('SERVER_ROOT', '/' );
