@@ -78,35 +78,45 @@
 			   </section>
 		   
 		</section>
+		</form>
+		<section class='notifications' ng-show="pm.showEdit && pm.selectedProducts.length > 0 && pm.selectedProducts.length < 2">
+			<h1> Apparaat : {{ pm.getselectedProduct('name')}} </h1>
+			<hr>
+				<table style='width: 60%'>
+					<thead>
+						<td>Huidige foto<br><br><img src='assets/JVC.png' width='150px'></td>
+						
+					</thead>
+					<tbody>
+						<tr>
+							<td> Upload een nieuwe foto</td>
+							<td><input type='file'></td>
+						</tr>
+						<tr>
+							<td width='50%'>Aantal totaal</td>
+							<td>{{ pm.getselectedProduct('aantal')}}</td>
+						</tr>
+						<tr>
+							<td width='50%'>beschrijving</td>
+							<td><textarea ng-model="pm.editAbleProduct.description" ></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+		</section>
 		
 		<section class='notifications' ng-show="pm.showEdit && pm.selectedProducts.length > 0 && pm.selectedProducts.length < 2">
 			<h1> Serials </h1>
 			<hr>
 				<table style='width: 60%'>
-					<thead>
-						<td width='50%'>Aantal</td>
-						<td><select name='product_aantal' ng-model='pm.aantal' ng-options="key as key for key in pm.aantallen"></select></td>
-					</thead>
-					<tbody>
-						
-							<tr ng-repeat='key in pm.NewArray( pm.aantal )' > 
-								<td>serial {{ key }} </td>
-								<td>
-									<input type='text' name='product_serial_{{ key }}' placeholder="serial_number" required>
-								</td>
-							</tr>
-						
-						<tr>
-							<td>
-								<input type='submit' class='btn btn-blue' value='Opslaan'>
-								<input type='button' class='btn btn-danger' value='Annuleren'>
-							</td>
-						</tr>
-					</tbody>
+					<tr ng-repeat='key in pm.NewArray( pm.aantal )' > 
+						<td>serial {{ key }} </td>
+						<td>
+							<input type='text' name='product_serial_{{ key }}' placeholder="serial_number" required>
+						</td>
+					</tr>
 				</table>
-			
 		</section>
-	</form>
+	
 
 </section>
 

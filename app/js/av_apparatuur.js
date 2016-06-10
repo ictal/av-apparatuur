@@ -228,6 +228,7 @@
 			console.log( this.selectedProducts );
 		}
 		
+		//look at line 412
 		this.getselectedProduct = function( arg ){
 			
 			var products = this.products;
@@ -267,7 +268,7 @@
 			var data = [];
 			var length = size;
 
-			for(var i = 0; i < length; i++) {
+			for(var i = 1; i < length + 1; i++) {
 				data.push( i );
 			}
 			return data;
@@ -408,6 +409,7 @@
 			});
 		}
 		
+		//returns selected users data example. getSelectedUser( name ) return name of user.
 		this.getselectedUser = function( arg ){
 			
 			var users = this.users;
