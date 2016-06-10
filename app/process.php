@@ -53,7 +53,7 @@ switch( $form->_type ){
 
 		$product = new Product('product_img', $_POST['product_name'], $_POST['product_description'] );
 		
-		if( $product->saveProducts() ){
+		if( $product->saveProduct() ){
 			
 			$page->redirect('dashboard.php' ,'p=products');
 			

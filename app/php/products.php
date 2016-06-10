@@ -19,7 +19,7 @@ class product {
 		
 	}
 	
-	public function saveProducts() 
+	public function saveProduct() 
 	{
 		
 		$db = new database();
