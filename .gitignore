@@ -7,3 +7,5 @@
 *.iml
 out
 gen
+*.jpg
+*.png
