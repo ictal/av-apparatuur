@@ -6,6 +6,7 @@ include_once(dirname(__FILE__).'/php/net/session.php');
 include_once(dirname(__FILE__).'/php/net/database.php');
 include_once(dirname(__FILE__).'/php/html/page.php');
 
+
 $form = new Form( $_POST );
 $page = new Page();
 $session = new session();
@@ -14,20 +15,25 @@ $db = new Database();
 switch( $form->_type ){
 	
 	case 'registration':
-		if( $form->validate()) {
+		if( $form->validate() ) {
 			
 			$token = Encryption::_hash( 'registration', $session->get('registration_token') );
 			if($token == $form['token']){
 				
 				unset($form['token']);
 				
-				var_dump( $db->addUser( $form ) );
-				
+				if( isset( $_POST['voorwaarden'] ) ){
+					$db->addUser( $form );
+					
+					$session->remove('registration_token');
+					$session->remove('error');
 
-				$session->remove('registration_token');
-				$session->remove('error');
-
-				$page->redirect('index.php' .'p=user');
+					$page->redirect('index.php','p=user');
+				}else {
+					
+					$form->sendError('terms_not_accepted', 'register.php');
+					
+				}
 				
 			}else{
 				
@@ -53,14 +59,22 @@ switch( $form->_type ){
 					
 					$user = new User( $db->getUser( $form['username'], 'id') );
 					
+					//has not validate email.
+					if( $user->getStatus() < 1 ){
+						$form->sendError('account_not_activated', 'index.php');
+						return false;
+					}
+					
+					
 					$session->set( 'userId', $user->getId() );
 					
 					$session->set( 'logged_in', true );
 					
-					$page->redirect('index.php','p=user');
+					$page->redirect('index.php' ,'p=user');
 					$session->remove('error');
 					
 				}else{
+					
 					$form->sendError('wrong_login_details', 'index.php');
 					
 				}
@@ -82,4 +96,5 @@ switch( $form->_type ){
 	break;
 }
 	
+#header('Location: ' ."http://localhost/AV/".'index.php');
 ?>
