@@ -25,7 +25,7 @@ include_once(dirname(__FILE__).'/../html/page.php');
 		
 		public function setValue( $input, $value ){
 			
-			$this->container [ $name ] = $value;
+			$this->container [ $input ] = $value;
 			
 		}
 		

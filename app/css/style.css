@@ -202,7 +202,8 @@ body {
 	float: right !important;
 }
 .btn {
-    border: 1px solid;
+	cursor: pointer;
+    border: 1px solid lightgrey;
     height: 31px;
 	margin: 5px;
     width: 95px;
@@ -231,4 +232,21 @@ body {
 .container p {
 	color: white;
 	margin: 0px;
+}
+
+.error_product_page {
+	background: #f08176 none repeat scroll 0 0;
+    color: white;
+    padding: 0 7px;
+}
+
+.error_product_page > h1 {
+    margin: 0;
+    padding: 5px;
+}
+
+.error_product_page > .notice > p {
+    color: white;
+	margin: 0;
+	padding: 5px;
 }
