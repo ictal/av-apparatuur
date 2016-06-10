@@ -18,7 +18,7 @@
 		//Load all the products in the database
 		
 		case 'loadProducts':
-			$sql = 'SELECT p.id, name, COUNT( s.product_id ) AS aantal, description FROM products AS p JOIN serials AS s ON s.product_id = p.id GROUP BY p.id';
+			$sql = 'SELECT p.id, name, COUNT( s.product_id ) AS aantal, description FROM products AS p LEFT JOIN serials AS s ON s.product_id = p.id GROUP BY p.id';
 			
 			$responce = $db->fetchAll( $sql );
 			

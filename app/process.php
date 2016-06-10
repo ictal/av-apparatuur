@@ -50,25 +50,16 @@ switch( $form->_type ){
 		
 	break;
 	case 'products':
-		print_r($form);
-		$aantal = intval( explode(':', $_POST['product_aantal'])[1] );
-		$serials = [];
-		
-		for( $i = 0; $i < $aantal; $i++){
-			
-			array_push($serials, $_POST['product_serial_' .$i ]);
-			
-		}
-		
-		$product = new Product('product_img', $_POST['product_name'], $_POST['product_description'], $serials );
+
+		$product = new Product('product_img', $_POST['product_name'], $_POST['product_description'] );
 		
 		if( $product->saveProducts() ){
 			
 			$page->redirect('dashboard.php' ,'p=products');
 			
 		}else{
-			
-			$page->redirect('dashboard.php' ,'p=products&error=' .$product->error_message );
+			$session->set( 'POST_DATA', $form->getContainer() );
+			#$page->redirect('dashboard.php' ,'p=products&error=' .$product->error_message );
 			
 		}
 		

@@ -11,54 +11,37 @@ class product {
 	private $serials = [];	
 	private $FileExtentions = [ 'png', 'jpg', 'jpeg', 'gif' ];
 	
-	function __construct ($image, $name, $description, $serials)
+	function __construct ($image, $name, $description)
 	{
 		$this->image = $image;
 		$this->name = $name;
 		$this->description = $description;
-		$this->serials = $serials;
+		
 	}
 	
 	public function saveProducts() 
 	{
-		$image = $this->saveImage( $this->image );
 		
-		if( $image ){
+		$db = new database();
 			
-			$db = new database();
-			$sql = 'INSERT INTO products (name, description, img) VALUES( ?, ?, ?)';
-			
-			$db->query($sql, array($this->name, $this->description, $image) );
-			
-			$product_id = $db->getInsertedLastId();
-			
-			foreach( $this->serials as $serial){
-				
-				$sql = 'INSERT INTO serials ( product_id, serial) VALUES(?, ?)';
-				
-				$db->query( $sql, array($product_id, $serial) );
-				
-			}
-			
-			return true;
-		}
+		$sql = 'INSERT INTO products (name, description ) VALUES( ?, ?)';
+		$db->query($sql, array($this->name, $this->description ) );
 		
-		return false;
+		return true;
 	}
 	
-	public function saveImage( $name ){
+	public function saveImage( $name, $id ){
 		
 		$image = $_FILES[ $name ];
 		
 		$size = $image['size'];
-		$name = $image['name'];
+		$name = $id .'_' .$image['name'];
 		$tmp  = $image['tmp_name'];
 		$type = strtolower( pathinfo( $name, PATHINFO_EXTENSION) );
 		
 		if( $this->fileReadyToUpload($name, $size, $type) ){
 			
-			if( file_exists( ASSET_PATH .$name ))
-				move_uploaded_file( $tmp, ASSET_PATH .$name );
+			move_uploaded_file( $tmp, ASSET_PATH .$name );
 			
 			return $name;
 		}
@@ -71,15 +54,19 @@ class product {
 	// $ft = file_type
 	public function fileReadyToUpload( $fn, $fs, $ft ){
 		
+		if( file_exists( ASSET_PATH .$fn ) ){
+			$this->error_message = 'file_exists';
+			return false;
+		}
 		
 		if( $fs > 500000){
-			$this->error_message = 'size';
+			$this->error_message = 'file_size_error';
 
 			return false;
 		}
 		
 		if( !in_array($ft, $this->FileExtentions ) ){
-			$this->error_message = 'unsported_file';
+			$this->error_message = 'file_unsuported';
 			return false;
 		}
 		

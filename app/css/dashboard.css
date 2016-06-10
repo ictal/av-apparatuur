@@ -131,7 +131,6 @@
 }
 .dashboard-item .icon-frame {
 	height: 66px;
-
     width: 52px;
 }
 .dashboard-item  .icon-frame , .dashboard-item .content{
@@ -184,14 +183,12 @@ table #head:hover{
 .dashboard-content .notifications table td, th{
 	font-family: arial;
     font-size: 14px;
-	
     font-weight: 100;
 	border-bottom: 10px solid white;
 	text-align: left;
 }
 
 .dashboard-content .notifications table td {
-	cursor: pointer;
 	padding-top: 5px;
 }
 .notifications .users .img-holder {
@@ -224,7 +221,6 @@ table #head:hover{
 	font-size: 13px;
 }
 .notifications .users .desc h1 {
-
 	font-size: 14px;
 }
 
@@ -264,23 +260,18 @@ table #head:hover{
 }
 
 .c-orange {
-
 	color: #ff8761;
 }
 .c-blue {
-	
 	color: #57bdde;
 }
 .c-purple {
-	
 	color: #b198dc;
 }
 .c-indigo {
-	
 	color: #6dc7be;
 }
 .c-white {
-	
 	color: #fff;
 }
 .w-50{
@@ -349,7 +340,6 @@ hr {
 	 height: 274px;
 }
 .product {
-	
 	width: 50%;
 	float:left;
 }
@@ -375,3 +365,4 @@ hr {
 	border: none;
 	cursor: pointer;
 }
+

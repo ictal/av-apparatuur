@@ -5,6 +5,7 @@
 */
 
 require_once dirname( __FILE__ ) .'/../config.php';
+require_once dirname( __FILE__ ) .'/../net/session.php';
 
 class Page
 {
@@ -60,6 +61,15 @@ class Page
 			
 		'invalid_token' => array(
 			'message' => 'U probeert te registreren met een ongeldige token. Uw handelingen zijn opgeslagen voor nader onderzoek.'
+			),
+		'file_size_error' => array(
+			'message' => 'de bestand grote is te groot om te uploaden.'
+			),
+		'file_unsuported' => array(
+			'message' => 'de bestand grote is te groot om te uploaden.'
+			),
+		'file_exists' => array( 
+			'message' => 'de bestand dat uw wilt uploaden bestaat al.'
 			)
 			
 	);
@@ -155,6 +165,14 @@ class Page
 		
 			
 		}
+	}
+	
+	function SPost( $POST ) {
+		$session = new Session();
+		if( $session->_isset( 'POST_DATA' ) ){
+			return $session->get( 'POST_DATA' )[ $POST ];
+		}
+		return false;
 	}
 	
 	//include requested file

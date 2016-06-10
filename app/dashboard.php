@@ -1,8 +1,8 @@
 <?php
 require_once( dirname(__FILE__) .'/php/net/session.php');
 require_once( dirname(__FILE__) .'/php/net/database.php');
-require( dirname(__FILE__) .'/php/html/page.php');
-require( dirname(__FILE__) .'/php/user/user.php');
+require_once( dirname(__FILE__) .'/php/html/page.php');
+require_once( dirname(__FILE__) .'/php/user/user.php');
 
 $session = new Session();
 $page = new Page( 'index' );
@@ -93,7 +93,16 @@ if($user->getPermission() < 1)
 				</nav>
 				</section>
 				
-				<?php
+				<?php if( isset( $_GET['error'] ) ) {  ?>
+				
+					<section class='error_product_page'>
+					
+						<h1>Foutje!</h1>
+						<?php echo $page->display_errors(); ?>
+						
+					</section>
+					
+				<?php }
 
 					 $page->load();
 

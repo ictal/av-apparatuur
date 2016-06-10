@@ -64,10 +64,6 @@ class Database
 
     }
 
-    public function getlastInsertId()
-    {
-        return $this->pdo->lastInsertId();
-    }
 
     public function rowCount($sql, $values = false)
     {
