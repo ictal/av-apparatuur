@@ -273,7 +273,6 @@
 		
 		this.addSerial = function() {
 			var l = this.editAbleProduct.serials.length;
-			var serial = { 'id': 'NULL_' + l, 'serial' : ''};
 			
 			this.editAbleProduct.serials.add( serial );
 		}
@@ -333,7 +332,7 @@
 			$http({
 				method: 'POST',
 				url: 'api.php/?q=deleteProducts',
-				data: $httpParamSerializerJQLike(data), //WTF...
+				data: $httpParamSerializerJQLike(data), 
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function successCallback(response) {
 				that.dismiss();
@@ -356,7 +355,7 @@
 			$http({
 				method: 'POST',
 				url: 'api.php/?q=updateProduct',
-				data: $httpParamSerializerJQLike(that.editAbleProduct), //WTF...
+				data: $httpParamSerializerJQLike(that.editAbleProduct), 
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function successCallback(response) {
 
@@ -365,10 +364,23 @@
 				console.log(response);
 			});
 		}
-		
+		this.saveEditProduct = function() {
+			var that = this;
+			$http({
+				method: 'POST',
+				url: 'api.php/?q=saveEditProduct',
+				data: $httpParamSerializerJQLike( that.editAbleProduct ), 
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).then(function successCallback(response) {
+
+				that.showEdit = false;
+			}, function errorCallback(response) {
+				console.log(response);
+			});
+			
+		}
 		this.loadProducts = function(){
 			var that = this;
-			this.products;
 			$http({
 			  method: 'GET',
 			  url: 'api.php/?q=loadProducts',
@@ -454,7 +466,7 @@
 			$http({
 				method: 'POST',
 				url: 'api.php/?q=updateUser',
-				data: $httpParamSerializerJQLike(that.editAbleUser), //WTF...
+				data: $httpParamSerializerJQLike(that.editAbleUser), 
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function successCallback(response) {
 
@@ -508,7 +520,7 @@
 			$http({
 				method: 'POST',
 				url: 'api.php/?q=deleteUser',
-				data: $httpParamSerializerJQLike( {'id': id} ), //WTF...
+				data: $httpParamSerializerJQLike( {'id': id} ), 
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			}).then(function successCallback(response) {
 				that.loadUsers();

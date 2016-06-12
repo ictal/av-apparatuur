@@ -90,7 +90,11 @@
 					<tbody>
 						<tr>
 							<td> Upload een nieuwe foto</td>
-							<td><input type='file'></td>
+							<td><input name='new_img' type='file'></td>
+						</tr>
+						<tr>
+							<td>Naam</td>
+							<td><input type='text' ng-model='pm.editAbleProduct.name'></td>
 						</tr>
 						<tr>
 							<td width='50%'>Aantal totaal</td>
@@ -115,7 +119,7 @@
 						<td><input type='checkbox' id="{{ value['id'] }}" name='serial' ng-click="pm.addSerialToList( value['id'] )"></td>
 						<td>serial {{ key + 1 }} </td>
 						<td>
-							<input type='number' ng-model="pm.editAbleProduct.serials[key]['serial']" name="product_serial_{{ value['id'] }}" value="{{ value['serial'] }}" placeholder="serial_number" >
+							<input type='text' ng-model="pm.editAbleProduct.serials[key]['serial']" name="product_serial_{{ value['id'] }}" value="{{ value['serial'] }}" placeholder="serial_number" >
 						</td>
 					</tr>
 				</table>

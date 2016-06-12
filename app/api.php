@@ -11,6 +11,7 @@
 	$request = $page->_GET('q');
 	$db = new Database();
 	$session = new Session();
+			
 	/*
 		
 	*/
@@ -277,8 +278,7 @@
 			}
 		break;
 		case 'deleteProducts':
-			$session = new Session();
-			
+
 			if( $session->_isset('userId') )
 			{
 				$user = new User( $session->get('userId') );
@@ -290,6 +290,40 @@
 				}
 			}
 			break;
+		case 'saveEditProduct':
+			if( $session->_isset('userId') )
+			{
+				$user = new User( $session->get('userId') );
+				
+				if($user->getPermission() > 0)
+				{
+					
+					print_r( $_POST );
+					
+					//update product sql 
+					$product_sql = 'UPDATE products SET name = ?, description = ?, img = ? WHERE id = ?';
+					
+					$db->query($product_sql, array( $_POST['name'], $_POST['description'], $_POST['img'], $_POST['id'] ));
+					foreach( $_POST['serials'] as $key => $value ){
+						$id = explode('_', $value['id']);
+						
+						print_r($value);
+						
+						//new serial
+							$sql = 'INSERT INTO serials (product_id, serial) VALUES(? , ?)';
+							$db->query($sql, array( $_POST['id'], $value['serial'] ) );
+							
+						}else{
+							$sql = 'UPDATE serials SET serial = ? WHERE id = ? AND product_id = ?';
+							
+							$db->query( $sql, array( $value['serial'], $value['id'], $_POST['id'] ) );
+						}
+					}
+					
+					
+				}
+			}
+		break;
 		case 'save':
 			if($session->_isset( 'logged_in' )){
 				#print_r( $_POST );
