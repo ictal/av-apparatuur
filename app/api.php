@@ -310,6 +310,7 @@
 						print_r($value);
 						
 						//new serial
+						if( $id[0] == 'NEW'){
 							$sql = 'INSERT INTO serials (product_id, serial) VALUES(? , ?)';
 							$db->query($sql, array( $_POST['id'], $value['serial'] ) );
 							

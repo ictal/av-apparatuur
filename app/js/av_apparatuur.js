@@ -273,6 +273,7 @@
 		
 		this.addSerial = function() {
 			var l = this.editAbleProduct.serials.length;
+			var serial = { 'id': 'NEW_' + l, 'serial' : ''};
 			
 			this.editAbleProduct.serials.add( serial );
 		}
