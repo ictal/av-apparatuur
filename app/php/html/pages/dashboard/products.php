@@ -46,7 +46,7 @@
     </section>
 	<form action='process.php' method="post" enctype="multipart/form-data">
 		<section class='notifications' ng-show="pm.showAdd">
-			<h1> Product </h1>
+			<h1> Product <span ng-click='pm.hideAdd()'class=' btn-x pull-right'>x</span></h1>
 			<hr>
 			
 				<section class='productForm'>
@@ -74,13 +74,13 @@
 							
 						</table>
 							<input type='submit' class='btn btn-blue' value='Opslaan'>
-							<input type='button' class='btn btn-danger' value='Annuleren'>
+							<input type='button' class='btn btn-danger'  ng-click='pm.hideAdd()' value='Annuleren'>
 			   </section>
 		   
 		</section>
 		</form>
 		<section class='notifications' ng-show="pm.showEdit && pm.selectedProducts.length > 0 && pm.selectedProducts.length < 2">
-			<h1> Apparaat : {{ pm.getselectedProduct('name')}} </h1>
+			<h1> Apparaat : {{ pm.getselectedProduct('name')}} <span ng-click='pm.closeEdit()' class='btn-x pull-right'>x</span></h1>
 			<hr>
 				<table style='width: 60%'>
 					<thead>
@@ -102,19 +102,26 @@
 						</tr>
 					</tbody>
 				</table>
+				<button class='btn btn-blue' ng-click='pm.saveEditProduct()'>Opslaan</button>
+				<button class='btn btn-danger' ng-click='pm.closeEdit()'>Afsluiten</button>
 		</section>
 		
 		<section class='notifications' ng-show="pm.showEdit && pm.selectedProducts.length > 0 && pm.selectedProducts.length < 2">
 			<h1> Serials </h1>
 			<hr>
+			{{ pm.editAbleProduct.serials }}
 				<table style='width: 60%'>
-					<tr ng-repeat='key in pm.NewArray( pm.aantal )' > 
-						<td>serial {{ key }} </td>
+					<tr ng-repeat='(key, value) in pm.editAbleProduct.serials' >
+						<td><input type='checkbox' id="{{ value['id'] }}" name='serial' ng-click="pm.addSerialToList( value['id'] )"></td>
+						<td>serial {{ key + 1 }} </td>
 						<td>
-							<input type='text' name='product_serial_{{ key }}' placeholder="serial_number" required>
+							<input type='number' ng-model="pm.editAbleProduct.serials[key]['serial']" name="product_serial_{{ value['id'] }}" value="{{ value['serial'] }}" placeholder="serial_number" >
 						</td>
 					</tr>
 				</table>
+				<button class='btn btn-blue' ng-click='pm.addSerial()'>Toevoegen</button>
+				<button class='btn btn-danger' ng-click='pm.removeSerials()'>Verwijderen</button>
+
 		</section>
 	
 

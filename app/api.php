@@ -16,7 +16,12 @@
 	*/
 	switch($request){
 		//Load all the products in the database
-		
+		case 'loadProductSerial':
+			$sql = 'SELECT id, serial FROM serials WHERE product_id = ?';
+			$responce = $db->fetchAll( $sql, array( $_POST['product_id'] ) );
+			
+			print_r( json_encode( array_values( $responce ) ) );
+		break;
 		case 'loadProducts':
 			$sql = 'SELECT p.id, name, COUNT( s.product_id ) AS aantal, description FROM products AS p LEFT JOIN serials AS s ON s.product_id = p.id GROUP BY p.id';
 			

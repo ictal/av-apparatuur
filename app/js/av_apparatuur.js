@@ -175,6 +175,7 @@
 		this.products = [];
 		this.productAmount = 0;
 		this.selectedProducts = [];
+		this.selectedSerials = [];
 		this.showEdit = false;
 		this.showAdd = false;
 		this.editAbleProduct;
@@ -187,6 +188,7 @@
 			this.products = data;
 			this.productAmount = data.length;
 		}
+		
 		this.selectAll = function(e)
 		{
 			var products = this.products;
@@ -195,8 +197,8 @@
 			for(var i = 0; i < length; i++)
 			{
 				
-				if(!list.contains( products[ i].id) && e.originalTarget.checked){
-					list.add( products[ i].id );
+				if(!list.contains( products[ i ].id) && e.originalTarget.checked){
+					list.add( products[ i ].id );
 					document.getElementById( products[ i ].id ).checked = true;
 				}else if( e.originalTarget.checked == false && list.contains( products[ i].id)){
 					list.remove( products[ i].id );
@@ -211,9 +213,9 @@
 		{
 			var list = this.selectedProducts;
 			
-			if( list.contains( productId) )
+			if( list.contains( productId ) )
 			{
-				list.remove( productId);
+				list.remove( productId );
 				this.showEdit = false;
 			}
 			else
@@ -226,6 +228,23 @@
 			//update selectedProducts
 			this.selectedProducts = list;
 			console.log( this.selectedProducts );
+		}
+		
+		this.addSerialToList = function( id ){
+			var list = this.selectedSerials;
+			
+			if( list.contains( id ) )
+			{
+				list.remove( id );
+			}
+			else
+			{
+				list.add( id );
+			}
+			
+			//update selectedProducts
+			this.selectedSerials = list;
+			console.log( this.selectedSerials );
 		}
 		
 		//look at line 412
@@ -252,11 +271,32 @@
 				return arg;
 		}
 		
+		this.addSerial = function() {
+			var l = this.editAbleProduct.serials.length;
+			var serial = { 'id': 'NULL_' + l, 'serial' : ''};
+			
+			this.editAbleProduct.serials.add( serial );
+		}
+		
+		this.removeSerials = function(){
+			//TODO...
+		}
+		
+		this.hideAdd = function(){
+			this.showAdd = false;
+		}
+		
+		this.closeEdit = function () {
+			this.showEdit = false;
+		}
+		
 		this.editProduct = function(){
 			if( this.selectedProducts.length != 1)
 				alert( 'Je hebt geen of the veel producten geselecteerd. MAX toegestaan  is 1.');
-			else
+			else{
+				this.loadSerials( this.getselectedProduct('id') );
 				this.showEdit = true;
+			}
 		}
 		
 		this.addProduct = function() {
@@ -342,6 +382,21 @@
 				console.log(response);
 			});
 		}
+		
+		this.loadSerials = function( id ){
+			var that = this;
+			$http({
+				method: 'POST',
+				url: 'api.php/?q=loadProductSerial',
+				data: $httpParamSerializerJQLike({'product_id' : id}), 
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).then(function successCallback(response) {
+				that.editAbleProduct.serials = response.data;
+			}, function errorCallback(response) {
+				console.log(response);
+			});
+		}
+		
 	});
 	
 	
@@ -501,14 +556,14 @@
 	}
 	
 	Array.prototype.remove = function(value) {
-		val = this.indexOf(value);
-		if(this.contains(value))
+		var val = this.indexOf( value );
+		if(this.contains( value ))
 		{
 			this.splice(val, 1);
 		}
 	}	
 	
-	Array.prototype.contains = function(obj) {
+	Array.prototype.contains = function( obj ) {
 		var i = this.length;
 		while (i--) {
 			if (this[i] === obj) {
