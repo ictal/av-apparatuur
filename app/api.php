@@ -24,7 +24,7 @@
 			print_r( json_encode( array_values( $responce ) ) );
 		break;
 		case 'loadProducts':
-			$sql = 'SELECT p.id, name, COUNT( s.product_id ) AS aantal, description FROM products AS p LEFT JOIN serials AS s ON s.product_id = p.id GROUP BY p.id';
+			$sql = 'SELECT p.id, name, COUNT( s.product_id ) AS aantal, img, description FROM products AS p LEFT JOIN serials AS s ON s.product_id = p.id GROUP BY p.id';
 			
 			$responce = $db->fetchAll( $sql );
 			
@@ -85,7 +85,7 @@
 		
 			$rentedProducts = $db->fetch( "SELECT COUNT( id ) amount FROM productreservations WHERE product_serial iS NOT NULL" )['amount'];
 			$reservationsList = $db->fetch( "SELECT COUNT(id) amount FROM reservations" )['amount'];
-			$newReservations = $db->fetch( "SELECT COUNT( id ) amount FROM productreservations WHERE product_serial iS NULL" )['amount'];
+			$newReservations = $db->fetch( "SELECT COUNT( id ) amount FROM productreservations WHERE product_serial IS NULL " )['amount'];
 			$productsList = $db->fetch( "SELECT COUNT( id ) amount FROM serials " )['amount'];
 			
 			$responce = array(
@@ -116,8 +116,20 @@
 					GROUP BY pr.reservation_id";
 					
 			$sql_two = "SELECT r.id, CONCAT( u.first_name, ' ', u.tsn_voegsel, ' ', u.last_name ) AS username,  u.picture as user_img, pr.product_id,p.name product , COUNT( pr.id ) product_amount, r.date_rented, r.date_retour FROM reservations AS r JOIN productreservations AS pr ON pr.reservation_id = r.id JOIN products AS p ON p.id = pr.product_id JOIN users AS u ON u.id = r.user WHERE pr.product_serial IS NOT NULL GROUP BY pr.product_id";
+			$sql_two = "SELECT 
+			r.id, 
+			CONCAT( u.first_name, ' ', u.tsn_voegsel, ' ', u.last_name ) AS username, 
+			p.name AS product, 
+			COUNT(p.name) AS product_amount, 
+			r.date_rented, 
+			r.date_retour
+			FROM reservations AS r 
+			JOIN users AS u ON u.id = r.user 
+			JOIN productreservations AS pr ON pr.reservation_id = r.id 
+			JOIN products AS p ON pr.product_id = p.id 
+			GROUP BY pr.reservation_id, p.name";
 				
-			$active_reservations = $db->fetchAll( $sql   );
+			$active_reservations = $db->fetchAll( $sql);
 			$confirmed_reservations = $db->fetchAll( $sql_two );
 			
 			$responce = array(
@@ -308,7 +320,11 @@
 						$id = explode('_', $value['id']);
 						
 						print_r($value);
-						
+						if( isset( $value['removed'] ) ){
+							$sql = "DELETE FROM serials WHERE id = ? AND serial = ?";
+							$db->query($sql, array(  $value['id'], $value['serial']) );
+						}
+
 						//new serial
 						if( $id[0] == 'NEW'){
 							$sql = 'INSERT INTO serials (product_id, serial) VALUES(? , ?)';

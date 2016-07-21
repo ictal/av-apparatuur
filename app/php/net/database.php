@@ -200,6 +200,10 @@ class Database
 	public function getInsertedLastId() {
 		return $this->pdo->lastInsertId();
 	}
+	
+	public function getlastInsertId() {
+		return $this->getInsertedLastId();
+	}
     public function destroy()
     {
         $this->pdo = null;

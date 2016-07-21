@@ -17,8 +17,6 @@ include_once(dirname(__FILE__).'/session.php');
 		}
 		
 		public static function generateToken( $token ){
-			$session = new Session();
-			
 			$salt = Encryption::generateSalt();
 			
 			return array('token' => Encryption::_hash($token, $salt), 'salt' => $salt );

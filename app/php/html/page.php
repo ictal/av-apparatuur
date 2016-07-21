@@ -66,10 +66,13 @@ class Page
 			'message' => 'de bestand grote is te groot om te uploaden.'
 			),
 		'file_unsuported' => array(
-			'message' => 'de bestand grote is te groot om te uploaden.'
+			'message' => 'de bestand moet een .png, .jpeg, jpg of.gif zijn om te uploaden'
 			),
 		'file_exists' => array( 
 			'message' => 'de bestand dat uw wilt uploaden bestaat al.'
+			),
+		'invalid_email' => array( 
+			'message' => 'Het opgegeven mail bestaat niet in onze database.. probeer nogmaals.'
 			)
 			
 	);
@@ -167,7 +170,7 @@ class Page
 		}
 	}
 	
-	function SPost( $POST ) {
+	public function SPOST( $POST ) {
 		$session = new Session();
 		if( $session->_isset( 'POST_DATA' ) ){
 			return $session->get( 'POST_DATA' )[ $POST ];
