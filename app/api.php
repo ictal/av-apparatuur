@@ -115,7 +115,6 @@
 					WHERE pr.product_serial IS NULL
 					GROUP BY pr.reservation_id";
 					
-			$sql_two = "SELECT r.id, CONCAT( u.first_name, ' ', u.tsn_voegsel, ' ', u.last_name ) AS username,  u.picture as user_img, pr.product_id,p.name product , COUNT( pr.id ) product_amount, r.date_rented, r.date_retour FROM reservations AS r JOIN productreservations AS pr ON pr.reservation_id = r.id JOIN products AS p ON p.id = pr.product_id JOIN users AS u ON u.id = r.user WHERE pr.product_serial IS NOT NULL GROUP BY pr.product_id";
 			$sql_two = "SELECT 
 			r.id, 
 			CONCAT( u.first_name, ' ', u.tsn_voegsel, ' ', u.last_name ) AS username, 
