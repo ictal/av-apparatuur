@@ -1,6 +1,6 @@
 <?php
-include( dirname(__FILE__) .'/php/html/page.php');
-include( dirname(__FILE__) .'/php/net/session.php');
+include_once( dirname(__FILE__) .'/php/html/page.php');
+include_once( dirname(__FILE__) .'/php/net/session.php');
 include_once(dirname(__FILE__).'/php/net/encryption.php');
 
 $page = new Page();
@@ -8,6 +8,12 @@ $session = new Session();
 $token = Encryption::generateToken('registration');
 $session->set('registration_token', $token['salt']);
 print_r($_SESSION);
+$m = '';
+
+print_r( $_GET);
+if( isset( $_GET['r'] ) ){
+	$m = 'Er is een herstel link verstuurd naar u mail, bekijk u spam voor het bericht.';
+}
 ?>
 
 <!doctype html>
@@ -29,6 +35,7 @@ print_r($_SESSION);
 				<form method='post' action='process.php'>
 				
 					<section class='input_fields full-width'>
+						<?php echo $m ?> 
 						<?php echo $page->display_errors() ?>
 						<input type='text' name='username' placeholder='username' required>
 						<input type='text' name='student_nummer' av-validate='int' placeholder='Studenten nummer' required>

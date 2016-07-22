@@ -9,3 +9,4 @@ DEFINE('DB_NAME', substr($url['path'], 1));
 
 DEFINE('ASSET_PATH', dirname(__FILE__) . '/../assets/');
 DEFINE('SERVER_ROOT', '/' );
+DEFINE('HTTP_HOST', $_SERVER['HTTP_HOST'] . '/' );

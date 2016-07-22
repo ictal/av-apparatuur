@@ -1,5 +1,4 @@
-<?php $page = new Page() ?>
-
+<?php $page = new Page(); ?>
 <section class='dashboard-content clearfix' ng-controller="productManager as pm" ng-init="pm.loadProducts()">
     <section><!-- Controller hier -->
         <section id='popup' class="popup" ng-class="pm.alert ? 'show' : 'invisible' ">
@@ -48,21 +47,19 @@
 		<section class='notifications' ng-show="pm.showAdd">
 			<h1> Product <span ng-click='pm.hideAdd()'class=' btn-x pull-right'>x</span></h1>
 			<hr>
-
+<<<<<<< HEAD
+			<?php echo $page->SPOST('product_name'); ?>
 				<section class='productForm'>
-
+					
 						<table>
-
 							<tr>
 								<td>Product foto:</td>
 								<td><input type='file' name='product_img' required ></td>
 							</tr>
-
 							<tr>
 								<td>Product naam:</td>
 								<td><input type='text' name='product_name' value='<?php echo $page->SPOST('product_name'); ?>' placeholder="product naam " required></td>
 							</tr>
-
 							<tr>
 								<td>Product Beschrijving:</td>
 								<td>
@@ -71,10 +68,9 @@
 									<input type='hidden' name='token' value='<?php echo $token ?>'>
 								</td>
 							</tr>
-
 						</table>
-							<input type='submit' class='btn btn-blue' value='Opslaan'>
-							<input type='button' class='btn btn-danger'  ng-click='pm.hideAdd()' value='Annuleren'>
+						<input type='submit' class='btn btn-blue' value='Opslaan'>
+						<input type='button' class='btn btn-danger'  ng-click='pm.hideAdd()' value='Annuleren'>
 			   </section>
 
 		</section>
@@ -84,8 +80,7 @@
 			<hr>
 				<table style='width: 60%'>
 					<thead>
-						<td>Huidige foto<br><br><img src='assets/JVC.png' width='150px'></td>
-
+						<td>Huidige foto<br><br><img src='assets/{{ pm.editAbleProduct.img }}' width='150px'></td>
 					</thead>
 					<tbody>
 						<tr>
@@ -109,16 +104,16 @@
 				<button class='btn btn-blue' ng-click='pm.saveEditProduct()'>Opslaan</button>
 				<button class='btn btn-danger' ng-click='pm.closeEdit()'>Afsluiten</button>
 		</section>
-
+		
 		<section class='notifications' ng-show="pm.showEdit && pm.selectedProducts.length > 0 && pm.selectedProducts.length < 2">
 			<h1> Serials </h1>
 			<hr>
-			{{ pm.editAbleProduct.serials }}
+			<!-- {{ pm.editAbleProduct.serials }} -->
 				<table style='width: 60%'>
 					<tr ng-repeat='(key, value) in pm.editAbleProduct.serials' >
-						<td><input type='checkbox' id="{{ value['id'] }}" name='serial' ng-click="pm.addSerialToList( value['id'] )"></td>
-						<td>serial {{ key + 1 }} </td>
-						<td>
+						<td ng-hide="pm.editAbleProduct.serials[key]['removed']"><input type='checkbox' id="{{ value['id'] }}" name='serial' ng-click="pm.addSerialToList( value['id'] )"></td>
+						<td ng-hide="pm.editAbleProduct.serials[key]['removed']">serial {{ key + 1 }} </td>
+						<td ng-hide="pm.editAbleProduct.serials[key]['removed']">
 							<input type='text' ng-model="pm.editAbleProduct.serials[key]['serial']" name="product_serial_{{ value['id'] }}" value="{{ value['serial'] }}" placeholder="serial_number" >
 						</td>
 					</tr>

@@ -6,8 +6,7 @@ include(dirname(__FILE__).'/php/products.php');
 include_once(dirname(__FILE__).'/php/net/session.php');
 include_once(dirname(__FILE__).'/php/net/database.php');
 include_once(dirname(__FILE__).'/php/html/page.php');
-
-
+include_once dirname( __FILE__) .'/php/mail.php';
 $form = new Form( $_POST );
 $page = new Page();
 $session = new session();
@@ -50,19 +49,15 @@ switch( $form->_type ){
 		
 	break;
 	case 'products':
-
 		$product = new Product('product_img', $_POST['product_name'], $_POST['product_description'] );
-		
 		if( $product->saveProduct() ){
-			
 			$page->redirect('dashboard.php' ,'p=products');
-			
 		}else{
-			$session->set( 'POST_DATA', $form->getContainer() );
-			#$page->redirect('dashboard.php' ,'p=products&error=' .$product->error_message );
-			
+      		$session->set( 'POST_DATA', $form->getContainer() );
+      			//$page->redirect('dashboard.php' ,'p=products&error=' . $product->getError() );
+
+      		$product->debug();
 		}
-		
  	break;
 	case 'login':
 		if( $form->validate()) {
@@ -108,6 +103,21 @@ switch( $form->_type ){
 		}
 		
 		$session->remove('login_token');
+	break;
+	case 'recover':
+		$email = $_POST['mail'];
+		
+		$sql = "SELECT 1 FROM users WHERE email = ?";
+		$result = $db->fetch( $sql, array( $email ) );
+		
+		if($result){
+			$mail = new Mail($email);
+			$mail->sendRecovery();
+			$page->redirect('recover.php' ,'r=messageSend');
+		}else{
+			$form->sendError('invalid_email', 'recover.php');
+		}
+		
 	break;
 }
 

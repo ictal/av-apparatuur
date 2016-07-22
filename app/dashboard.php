@@ -3,10 +3,11 @@ require_once( dirname(__FILE__) .'/php/net/session.php');
 require_once( dirname(__FILE__) .'/php/net/database.php');
 require_once( dirname(__FILE__) .'/php/html/page.php');
 require_once( dirname(__FILE__) .'/php/user/user.php');
+require_once( dirname(__FILE__) .'/php/mail.php');
 
 $session = new Session();
 $page = new Page( 'index' );
-
+$mail = new Mail("teest");
 $page->handleGET();
 
 if( $session->_isset( 'userId' ) )
@@ -18,9 +19,8 @@ if($user->getPermission() < 1)
 	$page->redirect('index.php');
 }
 
-
-
 ?>
+
 <!doctype html>
 <html  ng-app='av_apparatuur'>
 	<head>
@@ -33,6 +33,11 @@ if($user->getPermission() < 1)
 		<link rel="stylesheet" type="text/css" href="css/popup.css" >
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 		<script src='js/av_apparatuur.js' type='text/javascript'></script>
+		<script type="text/javascript">
+			function hide( id ) {
+				document.getElementById( id ).style.display = 'none';
+			}
+		</script>
 	</head>
 	<body>
 		<section class='inner-body clearfix'>
@@ -95,11 +100,10 @@ if($user->getPermission() < 1)
 				
 				<?php if( isset( $_GET['error'] ) ) {  ?>
 				
-					<section class='error_product_page'>
-					
+					<section id='error' class='error_product_page'>
+							<p><span onclick="hide('error');" class=' btn-x pull-right'>x</span></p>
 						<h1>Foutje!</h1>
 						<?php echo $page->display_errors(); ?>
-						
 					</section>
 					
 				<?php }

@@ -9,3 +9,5 @@ out
 gen
 *.jpg
 *.png
+*.php
+*.conf

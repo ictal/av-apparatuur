@@ -60,12 +60,16 @@
 					data: $httpParamSerializerJQLike( { 'reservation_id' : that.reservationId, 'selectedProducts' : that.selectedProducts } ),
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 				}).then(function successCallback(response) {
-					that.processData( response, 'serial' );
-					that.showSerialForm = true;
+					that.loadData();
+					that.showSerialForm = false;
 				}, function errorCallback(response) {
 					console.log(response);
 				});
 			}
+		}
+		
+		this.displayReservation = function( id ){
+			console.log( id );
 		}
 		
 		this.closePopup = function() {
@@ -86,6 +90,7 @@
 				var serial = this.selectedProducts[i].serial;
 				
 				if( temp_array.contains( 'undefined' ) || temp_array.contains( serial ) ){
+					alert("U heeft 1 serialnummber bij meerderen apparaten geselecteerd Of u heeft een apparaat leeg gelaten.");
 					return false;
 				}
 				
@@ -273,13 +278,46 @@
 		
 		this.addSerial = function() {
 			var l = this.editAbleProduct.serials.length;
-			var serial = { 'id': 'NEW_' + l, 'serial' : ''};
+			var id = new Date().valueOf();
+
+			var serial = { 'id': 'NEW_' + id , 'serial' : ''};
 			
 			this.editAbleProduct.serials.add( serial );
 		}
 		
 		this.removeSerials = function(){
-			//TODO...
+
+			var keptSerials = [];
+			
+			for( var i  = 0; i <= this.selectedSerials.length; i++ ){
+
+				//console.log( this.selectedSerials[ i ] );
+
+				for( var _i = 0; _i < this.editAbleProduct.serials.length; _i++ ){
+
+					console.log( this.editAbleProduct.serials[ _i ]['id'] );
+
+					if( this.editAbleProduct.serials[ _i ]['id'] == this.selectedSerials[ i ] ) {
+						var id = this.selectedSerials[ i ].split('_');
+
+						//console.log( this );
+						if(id[0] == 'NEW'){
+							this.selectedSerials.splice( i, 1 );
+							this.editAbleProduct.serials.splice( _i, 1 );
+						}else{
+							//uncheck
+							document.getElementById( id.join('_') ).checked = false;
+							this.selectedSerials.splice( i, 1 );
+							this.editAbleProduct.serials[ _i ]['removed'] = true;
+						}
+					}
+
+
+				}
+
+				if(this.selectedSerials.length != 0 && i == this.selectedSerials) i = 0;
+
+			}
 		}
 		
 		this.hideAdd = function(){
@@ -592,3 +630,5 @@ function wait(ms){
      end = new Date().getTime();
   }
 }
+
+String.prototype.contains = function(it) { return this.indexOf(it) != -1; };

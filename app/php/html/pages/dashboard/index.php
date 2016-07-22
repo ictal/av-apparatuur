@@ -50,15 +50,17 @@
 								<th>Aantal</th>
 								<th>Ophaal datum</th>
 								<th>Retour datum</th>
+								<th>Info</th>
 							</tr>
 							<tr ng-repeat='reservation in rm.confirmed_reservations'>
 							
-								<td> {{ reservation.id }} </td>
+								<td> {{ $index }} </td>
 								<td> {{ reservation.username }} </td>
 								<td> {{ reservation.product }} </td>
 								<td> {{ reservation.product_amount}} </td>
 								<td> {{ reservation.date_rented }} </td>
 								<td> {{ reservation.date_retour }} </td>
+								<td> <a href='' ng-click='rm.displayReservation( reservation.id )' ><img src='img/icon-i.png' width='12px'></a>
 								
 								
 							</tr>
@@ -88,12 +90,15 @@
 								<h1 style='font-size: 17px'>Ashna wiar Reservatie<button class='btn-x' ng-click='rm.closePopup()'>X</button></h1>
 								<hr>
 								<section class='product_container'>
-									<section class='product' ng-repeat='product in rm.selectedProducts'>
-										<img ng-src='img/{{ product.img }}' width='75px'>
-										<p id="pull-left">{{ product.name }}</p>
-										<select ng-model='product.serial' ng-options="key.id as key.value for key in rm.serialsList[{{ product.productId }}]" >
-										</select>
-									</section>
+								<table>
+								
+									<tr class='product' ng-repeat='product in rm.selectedProducts'>
+										<td><img ng-src='assets/{{ product.img }}' width='75px'></td>
+										<td>{{ product.name }}</td>
+										<td><select ng-model='product.serial' ng-options="key.id as key.value for key in rm.serialsList[{{ product.productId }}]" >
+										</select></td>
+									</tr>
+								</table>
 								</section>
 								<button class='btn btn-default pull-right' ng-click='rm.saveReservation()'>Opslaan</button>
 							</section>
