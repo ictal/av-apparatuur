@@ -19,9 +19,6 @@ if($user->getPermission() < 1)
 	$page->redirect('index.php');
 }
 
-
-print_r( $mail->generateMessage() );
-die();
 ?>
 
 <!doctype html>
