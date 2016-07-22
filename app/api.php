@@ -24,7 +24,7 @@
 			print_r( json_encode( array_values( $responce ) ) );
 		break;
 		case 'loadProducts':
-			$sql = 'SELECT p.id, name, COUNT( s.product_id ) AS aantal, img, description FROM products AS p LEFT JOIN serials AS s ON s.product_id = p.id GROUP BY p.id';
+			$sql = 'SELECT p.id, name, COUNT( s.product_id ) AS aantal, description FROM products AS p LEFT JOIN serials AS s ON s.product_id = p.id GROUP BY p.id';
 			
 			$responce = $db->fetchAll( $sql );
 			
@@ -318,7 +318,8 @@
 					foreach( $_POST['serials'] as $key => $value ){
 						$id = explode('_', $value['id']);
 						
-						print_r($value);
+						#print_r($value);
+						
 						if( isset( $value['removed'] ) ){
 							$sql = "DELETE FROM serials WHERE id = ? AND serial = ?";
 							$db->query($sql, array(  $value['id'], $value['serial']) );

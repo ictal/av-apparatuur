@@ -49,7 +49,6 @@ switch( $form->_type ){
 		
 	break;
 	case 'products':
-	echo $_POST['product_name'];
 		$product = new Product('product_img', $_POST['product_name'], $_POST['product_description'] );
 		if( $product->saveProduct() ){
 			$page->redirect('dashboard.php' ,'p=products');
@@ -59,8 +58,6 @@ switch( $form->_type ){
 
       		$product->debug();
 		}
-		
-		
  	break;
 	case 'login':
 		if( $form->validate()) {

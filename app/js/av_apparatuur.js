@@ -318,7 +318,6 @@
 				if(this.selectedSerials.length != 0 && i == this.selectedSerials) i = 0;
 
 			}
-
 		}
 		
 		this.hideAdd = function(){

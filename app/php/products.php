@@ -28,7 +28,6 @@ class product {
 		$db = new database();
 			
 		$sql = 'INSERT INTO products (name, description ) VALUES( ?, ?)';
-		
 		$db->query($sql, array($this->name, $this->description ) );
 		$this->lastInsertedId = $db->getInsertedLastId();
 		if( $this->saveImage() ){
@@ -42,7 +41,7 @@ class product {
 	public function saveImage(){
 		
 		$image = $this->image;
-		print_r( $image );
+		#print_r( $image );
 		$id = uniqid();
 		$size = $image['size'];
 		$name = $id .'_' .$image['name'];
@@ -62,6 +61,11 @@ class product {
 	// fs = file_size, 
 	// $ft = file_type
 	public function fileReadyToUpload( $fn, $fs, $ft ){
+		
+		if( file_exists( ASSET_PATH .$fn ) ){
+			$this->error_message = 'file_exists';
+			return false;
+		}
 		
 		if( $fs > 500000){
 			$this->error_message = 'file_size_error';

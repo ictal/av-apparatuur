@@ -47,35 +47,32 @@
 		<section class='notifications' ng-show="pm.showAdd">
 			<h1> Product <span ng-click='pm.hideAdd()'class=' btn-x pull-right'>x</span></h1>
 			<hr>
+<<<<<<< HEAD
 			<?php echo $page->SPOST('product_name'); ?>
 				<section class='productForm'>
 					
 						<table>
-						
 							<tr>
 								<td>Product foto:</td>
 								<td><input type='file' name='product_img' required ></td>
 							</tr>
-							
 							<tr>
 								<td>Product naam:</td>
 								<td><input type='text' name='product_name' value='<?php echo $page->SPOST('product_name'); ?>' placeholder="product naam " required></td>
 							</tr>
-							
 							<tr>
 								<td>Product Beschrijving:</td>
 								<td>
 									<textarea name='product_description' required><?php echo $page->SPOST('product_description'); ?> </textarea>
 									<input type='hidden' name='type' value='products'>
-									<input type='hidden' name='token' value='<?php echo 123 ?>'>	
+									<input type='hidden' name='token' value='<?php echo $token ?>'>
 								</td>
 							</tr>
-							
 						</table>
-							<input type='submit' class='btn btn-blue' value='Opslaan'>
-							<input type='button' class='btn btn-danger'  ng-click='pm.hideAdd()' value='Annuleren'>
+						<input type='submit' class='btn btn-blue' value='Opslaan'>
+						<input type='button' class='btn btn-danger'  ng-click='pm.hideAdd()' value='Annuleren'>
 			   </section>
-		   
+
 		</section>
 		</form>
 		<section class='notifications' ng-show="pm.showEdit && pm.selectedProducts.length > 0 && pm.selectedProducts.length < 2">
@@ -84,7 +81,6 @@
 				<table style='width: 60%'>
 					<thead>
 						<td>Huidige foto<br><br><img src='assets/{{ pm.editAbleProduct.img }}' width='150px'></td>
-						
 					</thead>
 					<tbody>
 						<tr>
@@ -126,9 +122,7 @@
 				<button class='btn btn-danger' ng-click='pm.removeSerials()'>Verwijderen</button>
 
 		</section>
-	
-
-</section>
 
 
 </section>
+

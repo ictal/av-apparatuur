@@ -107,7 +107,6 @@ die();
 							<p><span onclick="hide('error');" class=' btn-x pull-right'>x</span></p>
 						<h1>Foutje!</h1>
 						<?php echo $page->display_errors(); ?>
-					
 					</section>
 					
 				<?php }
